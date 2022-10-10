@@ -2,7 +2,6 @@
 
 ### How many users do we have?
 #### Answer: 130
-_SQL query_
 ```
 select count (distinct USER_ID) from stg_users
 ```
