@@ -1,15 +1,18 @@
-{{
-  config(
-    materialized='view'
-  )
-}}
-
-with order_items_source as (
-    select * from {{ source('postgres', 'order_items') }}
+WITH orders AS(
+    SELECT * FROM {{ source('postgres', 'orders') }}
 )
 
-SELECT 
-      order_id
-    , product_id
-    , quantity
-FROM order_items_source
+SELECT ORDER_ID AS ORDER_GUID
+       ,USER_ID AS USER_GUID
+       ,PROMO_ID
+       ,ADDRESS_ID AS ADDRESS_GUID
+       ,CREATED_AT AS ORDER_CREATED_AT
+       ,ORDER_COST
+       ,SHIPPING_COST
+       ,ORDER_TOTAL
+       ,TRACKING_ID AS TRACKING_GUID
+       ,SHIPPING_SERVICE
+       ,ESTIMATED_DELIVERY_AT AS ORDER_ESTIMATED_DELIVERY_AT
+       ,DELIVERED_AT AS ORDER_DELIVERED_AT
+       ,STATUS AS ORDER_STATUS
+FROM orders

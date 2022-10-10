@@ -4,12 +4,11 @@
   )
 }}
 
-with order_items_source as (
-    select * from {{ source('postgres', 'order_items') }}
+WITH order_items AS(
+    SELECT * FROM {{ source('postgres', 'order_items') }}
 )
 
-SELECT 
-      order_id
-    , product_id
-    , quantity
-FROM order_items_source
+SELECT ORDER_ID AS ORDER_GUID
+       ,PRODUCT_ID AS PRODUCT_GUID
+       ,QUANTITY AS QUANTITY_ORDERED
+FROM order_items

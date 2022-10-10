@@ -4,14 +4,13 @@
   )
 }}
 
-with addresses_source as (
-    select * from {{ source('postgres', 'addresses') }}
+WITH addresses AS(
+    SELECT * FROM {{ source('postgres', 'addresses') }}
 )
 
-select 
-      address_id
-    , address
-    , zipcode
-    , state
-    , country
-from addresses_source
+SELECT ADDRESS_ID AS ADDRESS_GUID
+       ,ADDRESS AS STREET_ADDRESS
+       ,ZIPCODE
+       ,STATE
+       ,COUNTRY
+FROM addresses

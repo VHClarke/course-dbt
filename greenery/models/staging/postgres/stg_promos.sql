@@ -4,12 +4,11 @@
   )
 }}
 
-with promos_source as (
-    select * from {{ source('postgres', 'promos') }}
+WITH promos AS(
+    SELECT * FROM {{ source('postgres', 'promos') }}
 )
 
-SELECT 
-      promo_id
-    , discount
-    , status as promo_status
-FROM promos_source
+SELECT PROMO_ID
+       ,DISCOUNT AS PROMO_DISCOUNT
+       ,STATUS AS PROMO_STATUS
+FROM promos
