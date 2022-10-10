@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: stg_postgres__addresses
+    description: Addresses for orders and users. 
+  - name: stg_postgres__events
+    description: Greenery site event detail.
+  - name: stg_postgres__products
+    description: Product detail and inventory levels. 
+  - name: stg_postgres__promos
+    description: Promo detail and status.
+  - name: stg_postgres__order_items
+    description: Detail for orders, including products and quantity per product.
+  - name: stg_postgres__orders
+    description: High-level information. for orders, including cost, promos, and shipping information.
+  - name: stg_postgres__users
+    description: Greenery user information.
