@@ -5,9 +5,9 @@
 ```
 select count (distinct USER_ID) from stg_users
 ```
-#### Answer:  15 orders per hour
-### On average, how many orders do we receive per hour?
 
+### On average, how many orders do we receive per hour?
+#### Answer:  15 orders per hour
 ```
 with orders_per_hour as (
      select
@@ -22,22 +22,46 @@ with orders_per_hour as (
 ```
 
 ### On average, how long does an order take from being placed to being delivered?
-#### Answer:
+#### Answer: Approximately 93.4 hours
 ```
-placeholder
+select avg(timediff(hour, ORDER_CREATED_AT, ORDER_DELIVERED_AT)) from stg_orders;
 
 ```
 
 ### How many users have only made one purchase? Two purchases? Three+ purchases?
-#### Answer:
+#### Answer: One purchases = 25 | Two purchases = 28 | Three+ purchases = 71
 ```
-placeholder
 
+  with number_orders_per_user as (
+     select
+        user_guid,
+        count(order_guid) as orders
+     from stg_orders
+     group by 1
+  )
+
+  select
+     case
+        when orders < 3 then orders::varchar
+        else '3+'
+     end as number_orders,
+     count(user_guid) as users
+  from number_orders_per_user
+  group by 1
+  order by 1
+  ;
 ```
 
 ### On average, how many unique sessions do we have per hour?
-#### Answer:
+#### Answer: 39.5 unique sessions
 ```
-placeholder
+placeholder  with unique_sessions_per_hour as (
+     select
+     hour(CREATED_AT) as created_hour,
+     count(distinct SESSION_GUID) as unique_sessions
+     from stg_events
+     group by 1
+  )
 
+  select avg(unique_sessions) from unique_sessions_per_hour;
 ```
